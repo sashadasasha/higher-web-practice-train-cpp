@@ -76,13 +76,13 @@ inline std::ostream& operator<<(std::ostream& os, TrainType train_type) {
     using namespace std::literals;
     switch (train_type) {
         case TrainType::kFreight:
-            os << "О"s;
+            os << "Г"s;  // Грузовой
             break;
         case TrainType::kDanger:
-            os << "Г"s;
+            os << "О"s;  // Опасные грузы
             break;
         case TrainType::kPass:
-            os << "Л"s;
+            os << "Л"s;  // Пассажирский
             break;
         default:
             os << ""s;
