@@ -18,7 +18,10 @@ struct Locomotive {
 };
 
 struct OperationInfo {
-
+    int path_number = 0;
+    int train_number = 0;
+    LocoType locomotive_type = LocoType::kElectro16;
+    WagonType wagon_type = WagonType::kEmpty;
 };
 
 inline constexpr std::array<EventType, 17> kEventsBalanced = {
