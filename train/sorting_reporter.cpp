@@ -28,21 +28,23 @@ void SortingReporterImpl::EndShift(const SortingHill& sorting_hill) {
 
 
 void SortingReporterImpl::PreparePath(SortingHill& sorting_hill, OperationInfo& operation_info) {
-
+    std::cout << "Подготовка пути №"s << operation_info.path_number << std::endl;
 }
 
 void SortingReporterImpl::AllocatePathForTrain(SortingHill& sorting_hill, OperationInfo& operation_info) {
-
+    std::cout << "Выделение пути №"s << operation_info.path_number << " для поезда №"s << operation_info.train_number << std::endl;
 }
 
 void SortingReporterImpl::HandleLocomotive(SortingHill& sorting_hill, const Locomotive& locomotive, OperationInfo& operation_info) {
-
+    std::cout << "Обработка локомотива типа "s << static_cast<int>(locomotive.loco_type) << std::endl;
+    operation_info.locomotive_type = locomotive.loco_type;
 }
 
 void SortingReporterImpl::HandleWagon(SortingHill& sorting_hill, const Wagon& wagon, OperationInfo& operation_info) {
-
+    std::cout << "Обработка вагона типа "s << static_cast<int>(wagon.wagon_type) << std::endl;
+    operation_info.wagon_type = wagon.wagon_type;
 }
 
 void SortingReporterImpl::SendTrain(SortingHill& sorting_hill, OperationInfo& operation_info) {
-
+    std::cout << "Отправка поезда №"s << operation_info.train_number << " с пути №"s << operation_info.path_number << std::endl;
 }
