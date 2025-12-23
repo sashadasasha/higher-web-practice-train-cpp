@@ -76,17 +76,34 @@ bool SortingHill::CheckEvent(EventType event) const {
             return HasFreePath();
         }
         case EventType::kTrainPlanned: {
-            /* Проверить, что на назначенных путях нет поездов. */
-            return HasFreePath();
-        }
+                    /* Проверить, что есть свободные пути для размещения нового поезда. */
+                    return HasFreePath();
+                }
         case EventType::kLocoArrived: {
-            /* Проверить, что у поезда нет локомотива. */
-            return true;
-        }
+                    /* Проверить, что у поезда нет локомотива. */
+                    // Проверяем все пути, чтобы найти поезд без локомотива
+                    for (const auto& path : paths_) {
+                        if (path.GetTrain().has_value() && !path.GetTrain().value().GetLocomotive()) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
         case EventType::kTrainReady: {
-            /* Проверить, что количество вагонов соответствует локомотиву или буфер вагонов пустой. */
-            return true;
-        }
+                    /* Проверить, что количество вагонов соответствует локомотиву или буфер вагонов пустой. */
+                    // Если буфер вагонов пустой, можно отправлять поезда
+                    if (wagon_buffer_.empty()) {
+                        return true;
+                    }
+                    
+                    // Проверяем все пути, чтобы найти готовые поезда
+                    for (const auto& path : paths_) {
+                        if (path.IsTrainComplete()) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
         default:
             return true;
     }
